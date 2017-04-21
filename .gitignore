@@ -1,2 +1,5 @@
 # OS X junk
 .DS_Store
+
+# Environment vars
+conf/environment_vars.sh
