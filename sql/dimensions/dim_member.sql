@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS public.dim_member;
-CREATE TABLE public.dim_member AS
+/* Member dimension table (dim_member) */
+
+DROP TABLE IF EXISTS :tableschema.:tablename;
+CREATE TABLE :tableschema.:tablename AS
 
 select * from member;
