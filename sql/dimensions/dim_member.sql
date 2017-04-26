@@ -1,14 +1,14 @@
 /* Member dimension table (dim_member) */
 
-DROP TABLE IF EXISTS :tableschema.:tablename;
-CREATE TABLE :tableschema.:tablename AS
+DROP TABLE IF EXISTS :tablename;
+CREATE TABLE :tablename AS
 
 with member_dupe_geo as
 (
 	select
 		memberid,
 		count(*) as num_geocodes
-	from :tableschema.membergeography
+	from membergeography
 	group by memberid having count(*) > 1
 ),
 geo_dupe_rank as 
@@ -24,7 +24,7 @@ geo_dupe_rank as
 			memberid,
 			membergeocode,
 			count(*) as num_transactions
-		from :tableschema.businesstxn
+		from businesstxn
 		where memberid in (select memberid from member_dupe_geo)
 			and membergeocode is not null
 		group by memberid, membergeocode
@@ -48,7 +48,7 @@ geo_resolution as
 	select
 		memberid,
 		membergeocode
-	from :tableschema.membergeography
+	from membergeography
 	where memberid not in (select memberid from member_dupe_geo)
 )
 select
@@ -67,10 +67,10 @@ select
 	count(distinct usersession) as session_num,
 	count(distinct case when clicksource = 'search form' then usersession else null end) as session_searchform_num,
 	count(distinct case when clicksource = 'newsletter' then usersession else null end) as session_newsletter_num
-from :tableschema.member m
-left join :tableschema.businesstxn b on m.memberid = b.memberid
-left join :tableschema.product p on b.productid = p.productid
+from member m
+left join businesstxn b on m.memberid = b.memberid
+left join product p on b.productid = p.productid
 left join geo_resolution gr on m.memberid = gr.memberid
-left join :tableschema.geography g on gr.membergeocode = g.ipgeocode
+left join geography g on gr.membergeocode = g.ipgeocode
 group by m.memberid, g.city, g.state, g.country, g.region
 ;

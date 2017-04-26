@@ -1,7 +1,7 @@
 /* Transaction fact table (fact_businesstxn) */
 
-DROP TABLE IF EXISTS :tableschema.:tablename;
-CREATE TABLE :tableschema.:tablename AS
+DROP TABLE IF EXISTS :tablename;
+CREATE TABLE :tablename AS
 
 select
 	b.transactionid,
@@ -26,7 +26,7 @@ select
 	b.membergeocode,
 	b.departuregeocode,
 	b.destinationgeocode
-from :tableschema.businesstxn b
-left join :tableschema.product p on b.productid = p.productid
+from businesstxn b
+left join product p on b.productid = p.productid
 order by b.transactionid
 ;
