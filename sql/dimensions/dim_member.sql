@@ -60,13 +60,20 @@ select
 	count(*) as transaction_num,
 	sum(p.relvalue) as relvalue_total,
 	avg(p.relvalue) as relvalue_transaction_avg,
-	count(case when clicksource = 'search form' then 1 else null end) as transaction_searchform_num,
-	count(case when clicksource = 'newsletter' then 1 else null end) as transaction_newsletter_num,
-	sum(case when clicksource = 'search form' then p.relvalue else 0 end) as transaction_searchform_total,
-	sum(case when clicksource = 'newsletter' then p.relvalue else 0 end) as transaction_newsletter_total,
-	count(distinct usersession) as session_num,
-	count(distinct case when clicksource = 'search form' then usersession else null end) as session_searchform_num,
-	count(distinct case when clicksource = 'newsletter' then usersession else null end) as session_newsletter_num
+	count(distinct b.productitem) as productitem_num,
+	count(distinct b.productid) as product_num,
+	count(distinct b.supplierid) as supplier_num,
+	count(distinct b.suppliertrackid) as supplier_track_num,
+	count(distinct b.membergeocode) as member_geocode_num,
+	count(distinct b.departuregeocode) as departure_num,
+	count(distinct b.destinationgeocode) as destination_num,
+	count(case when b.clicksource = 'search form' then 1 else null end) as transaction_searchform_num,
+	count(case when b.clicksource = 'newsletter' then 1 else null end) as transaction_newsletter_num,
+	sum(case when b.clicksource = 'search form' then p.relvalue else 0 end) as transaction_searchform_total,
+	sum(case when b.clicksource = 'newsletter' then p.relvalue else 0 end) as transaction_newsletter_total,
+	count(distinct b.usersession) as session_num,
+	count(distinct case when b.clicksource = 'search form' then b.usersession else null end) as session_searchform_num,
+	count(distinct case when b.clicksource = 'newsletter' then b.usersession else null end) as session_newsletter_num
 from member m
 left join businesstxn b on m.memberid = b.memberid
 left join product p on b.productid = p.productid
