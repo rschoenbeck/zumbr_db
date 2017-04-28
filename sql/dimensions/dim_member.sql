@@ -53,6 +53,7 @@ geo_resolution as
 )
 select
 	m.memberid,
+	gr.membergeocode as primary_geocode,
 	g.city as primary_city,
 	g.state as primary_state,
 	g.country as primary_country,
@@ -79,5 +80,5 @@ left join businesstxn b on m.memberid = b.memberid
 left join product p on b.productid = p.productid
 left join geo_resolution gr on m.memberid = gr.memberid
 left join geography g on gr.membergeocode = g.ipgeocode
-group by m.memberid, g.city, g.state, g.country, g.region
+group by m.memberid, primary_geocode, g.city, g.state, g.country, g.region
 ;

@@ -6,7 +6,7 @@ CREATE TABLE :tablename AS
 select
 	b.transactionid,
 	b.memberid,
-	row_number() over(partition by memberid order by transactionid) as member_transaction_number,
+	row_number() over(partition by b.memberid order by transactionid) as member_transaction_number,
 	b.usersession,
 	b.productitem,
 	b.transdatetime,
@@ -20,13 +20,14 @@ select
 	b.businessid,
 	b.productid,
 	p.relvalue as product_relvalue,
-	sum(p.relvalue) over(partition by memberid order by transactionid) as member_cumulative_relvalue,
+	sum(p.relvalue) over(partition by b.memberid order by transactionid) as member_cumulative_relvalue,
 	b.supplierid,
 	b.suppliertrackid,
-	b.membergeocode,
+	coalesce(b.membergeocode, dm.primary_geocode) AS membergeocode,
 	b.departuregeocode,
 	b.destinationgeocode
 from businesstxn b
 left join product p on b.productid = p.productid
+left join dim_member dm on b.memberid = dm.memberid
 order by b.transactionid
 ;
