@@ -29,5 +29,6 @@ select
 from businesstxn b
 left join product p on b.productid = p.productid
 left join dim_member dm on b.memberid = dm.memberid
+left join geography g on coalesce(b.membergeocode, dm.primary_geocode) = g.ipgeocode
 order by b.transactionid
 ;
