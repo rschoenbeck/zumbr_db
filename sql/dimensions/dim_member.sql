@@ -74,7 +74,30 @@ select
 	sum(case when b.clicksource = 'newsletter' then p.relvalue else 0 end) as transaction_newsletter_total,
 	count(distinct b.usersession) as session_num,
 	count(distinct case when b.clicksource = 'search form' then b.usersession else null end) as session_searchform_num,
-	count(distinct case when b.clicksource = 'newsletter' then b.usersession else null end) as session_newsletter_num
+	count(distinct case when b.clicksource = 'newsletter' then b.usersession else null end) as session_newsletter_num,
+	sum(case when b.productid = 1 then 1 else 0 end) as num_flight_search,
+	sum(case when b.productid = 2 then 1 else 0 end) as num_hotel_search,
+	sum(case when b.productid = 3 then 1 else 0 end) as num_car_search,
+	sum(case when b.productid = 12 then 1 else 0 end) as num_misc,
+	sum(case when b.productid = 18 then 1 else 0 end) as num_hotel_deal,
+	sum(case when b.productid = 20 then 1 else 0 end) as num_flight_referral,
+	sum(case when b.productid = 21 then 1 else 0 end) as num_cruise_deal,
+	sum(case when b.productid = 22 then 1 else 0 end) as num_hotel_referral,
+	sum(case when b.productid = 23 then 1 else 0 end) as num_package_deal,
+	sum(case when b.productid = 24 then 1 else 0 end) as num_car_referral,
+	sum(case when b.productid = 25 then 1 else 0 end) as num_event_referral,
+	sum(case when b.productid = 26 then 1 else 0 end) as num_registration,
+	sum(case when b.productid = 28 then 1 else 0 end) as num_cruise_referral,
+	sum(case when b.productid = 29 then 1 else 0 end) as num_insurance,
+	sum(case when b.productid = 31 then 1 else 0 end) as num_package_referral,
+	sum(case when b.productid = 32 then 1 else 0 end) as num_shows_referral,
+	sum(case when b.productid = 33 then 1 else 0 end) as num_tour_referral,
+	sum(case when b.productid = 34 then 1 else 0 end) as num_flight_coupon,
+	sum(case when b.productid = 37 then 1 else 0 end) as num_car_coupon,
+	sum(case when b.productid = 40 then 1 else 0 end) as num_groupon_getaways,
+	sum(case when b.productid = 41 then 1 else 0 end) as num_groupon_goods,
+	sum(case when b.productid = 42 then 1 else 0 end) as num_groupon_deals,
+	sum(case when b.productid = 43 then 1 else 0 end) as num_services
 from member m
 left join businesstxn b on m.memberid = b.memberid
 left join product p on b.productid = p.productid
