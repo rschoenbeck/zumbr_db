@@ -45,7 +45,7 @@ select
 	sum(case when g.region = 'North America U.S.' then p.relvalue else 0 end) AS total_sold_destination_north_america_us,
 	sum(case when g.region = 'South America' then p.relvalue else 0 end) AS total_sold_destination_south_america,
 	sum(case when g.region = 'Europe' then p.relvalue else 0 end) AS total_sold_destination_europe
-from supplier s
+from supplier_vw s
 left join businesstxn b on b.supplierid = s.supplierid
 left join product p on b.productid = p.productid
 left join geography g on b.destinationgeocode = g.ipgeocode

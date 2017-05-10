@@ -40,7 +40,7 @@ from businesstxn b
 left join product p on b.productid = p.productid
 left join dim_member dm on b.memberid = dm.memberid
 left join geography g on coalesce(b.membergeocode, dm.primary_geocode) = g.ipgeocode
-left join supplier s on b.supplierid = s.supplierid
+left join supplier_vw s on b.supplierid = s.supplierid
 left join geography gdep on b.departuregeocode = gdep.ipgeocode
 left join geography gdest on b.destinationgeocode = gdest.ipgeocode
 order by b.transactionid

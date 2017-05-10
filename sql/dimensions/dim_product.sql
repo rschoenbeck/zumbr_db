@@ -50,7 +50,7 @@ from product p
 left join businesstxn b on b.productid = p.productid
 left join geography g on b.destinationgeocode = g.ipgeocode
 left join supplier_top_rank str on p.productid = str.productid and str.row_ranking = 1
-left join supplier ts on str.supplierid = ts.supplierid
+left join supplier_vw ts on str.supplierid = ts.supplierid
 group by p.productid, p.productname, p.relvalue, ts.name
 order by p.productid
 ;
