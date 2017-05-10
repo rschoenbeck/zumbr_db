@@ -13,3 +13,5 @@ find sql -name \*.sql | while read sql_file; do
 	echo "Setting grants for table '$table_name'"
 	psql -v tableschema="$db_schema" -v tablename="$table_name" -h $db_host -d $db_name -U $db_user -f grants/grants.sql
 done
+
+source test.sh
