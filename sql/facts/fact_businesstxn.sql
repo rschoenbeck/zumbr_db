@@ -20,6 +20,7 @@ select
 	b.businessid,
 	b.productid,
 	p.productname as product_name,
+	p.product_category,
 	p.relvalue as product_relvalue,
 	sum(p.relvalue) over(partition by b.memberid order by transactionid) as member_cumulative_relvalue,
 	b.supplierid,
@@ -37,7 +38,7 @@ select
 	b.departuregeocode,
 	b.destinationgeocode
 from businesstxn b
-left join product p on b.productid = p.productid
+left join dim_product p on b.productid = p.productid
 left join dim_member dm on b.memberid = dm.memberid
 left join geography g on coalesce(b.membergeocode, dm.primary_geocode) = g.ipgeocode
 left join supplier_vw s on b.supplierid = s.supplierid

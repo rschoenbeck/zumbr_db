@@ -33,6 +33,14 @@ supplier_top_rank as
 select
 	p.productid,
 	p.productname,
+	case when p.productid in(1,20,34) then 'Flight'
+		when p.productid in (2,18,22) then 'Hotel'
+		when p.productid in (3,24,37) then 'Car'
+		when p.productid in (31,23) then 'Package'
+		when p.productid in (21,28) then 'Cruise'
+		when p.productid in (40,41,42) then 'Groupon'
+		else 'Other'
+		end as product_category,
 	p.relvalue,
 	ts.name AS top_supplier,
 	sum(p.relvalue) AS total_relvalue_sold,
