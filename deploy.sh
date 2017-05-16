@@ -4,7 +4,11 @@
 source conf/environment_vars.sh
 export PGPASSWORD=$db_pwd
 
-echo "Deploying tables..."
+echo "Uploading files..."
+
+source data_upload.sh
+
+echo "Deploying SQL tables..."
 
 find sql -name \*.sql | while read sql_file; do
 	echo "Deploying file '$sql_file'"
