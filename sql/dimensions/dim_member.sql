@@ -58,7 +58,7 @@ select
 	g.state as primary_state,
 	g.country as primary_country,
 	g.region as primary_region,
-	pr.sn_rec_kxreco as recommended_product,
+	pm.productname as recommended_product,
 	count(*) as transaction_num,
 	sum(p.relvalue) as relvalue_total,
 	avg(p.relvalue) as relvalue_transaction_avg,
@@ -111,6 +111,7 @@ left join businesstxn b on m.memberid = b.memberid
 left join product p on b.productid = p.productid
 left join geo_resolution gr on m.memberid = gr.memberid
 left join geography g on gr.membergeocode = g.ipgeocode
-left join top5products pr on pr.memberid = m.memberid and pr.sn_rec_rule_id = 1
+left join top5productitems pr on pr.memberid = m.memberid and pr.sn_rec_rule_id = 1
+left join productitem_mapper pm on pm.productitem = pr.productitem
 group by m.memberid, primary_geocode, g.city, g.state, g.country, g.region, pr.sn_rec_kxreco
 ;
