@@ -113,5 +113,5 @@ left join geo_resolution gr on m.memberid = gr.memberid
 left join geography g on gr.membergeocode = g.ipgeocode
 left join top5productitems pr on pr.memberid = m.memberid and pr.sn_rec_rule_id = 1
 left join productitem_mapper pm on pm.productitem = pr.productitem
-group by m.memberid, primary_geocode, g.city, g.state, g.country, g.region, pr.sn_rec_kxreco
+group by m.memberid, primary_geocode, g.city, g.state, g.country, g.region, pm.productname
 ;
